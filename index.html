@@ -311,6 +311,27 @@ html,body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(-
 .conn-err{display:none;background:#ff3b30;color:#fff;text-align:center;
   padding:8px 14px;font-size:12px;font-weight:600;flex-shrink:0;}
 .conn-err.on{display:block;}
+
+/* ━ cal-left wrapper ━ */
+.cal-left{display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;}
+
+/* ━━━ デスクトップレイアウト（768px以上）━━━ */
+@media(min-width:768px){
+  .app{overflow:hidden;}
+  .cal-pane{flex-direction:row!important;overflow:hidden;}
+  .cal-pane.on{display:flex;}
+  .cal-left{flex:1;min-width:0;overflow-y:auto;}
+  .detail-panel{width:clamp(300px,30vw,420px);flex-shrink:0;
+    border-top:none;border-left:1px solid var(--border);overflow-y:auto;}
+  .cell{aspect-ratio:1/0.85;}
+  .cgrid{flex-shrink:0;}
+  .dp-empty{min-height:300px;}
+  /* タブバーを左寄せ */
+  .tabbar{max-width:100%;}
+  /* メモペインもPC対応 */
+  .memo-pane{max-width:800px;margin:0 auto;}
+  .memo-pane.on{display:block;}
+}
 </style>
 </head>
 <body>
@@ -330,16 +351,18 @@ html,body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(-
       <button class="hbtn hnav" id="nb" onclick="changeMonth(1)">&#8250;</button>
     </div>
   </div>
-  <!-- 曜日行 -->
-  <div class="wdays">
-    <div class="wday su">日</div><div class="wday">月</div><div class="wday">火</div>
-    <div class="wday">水</div><div class="wday">木</div><div class="wday">金</div>
-    <div class="wday sa">土</div>
-  </div>
   <!-- カレンダーペイン -->
   <div class="cal-pane on" id="pane-cal">
-    <div class="cgrid" id="cg">
-      <div style="grid-column:span 7" class="ldwrap"><div class="spin"></div><br>読み込み中...</div>
+    <div class="cal-left">
+      <!-- 曜日行 -->
+      <div class="wdays">
+        <div class="wday su">日</div><div class="wday">月</div><div class="wday">火</div>
+        <div class="wday">水</div><div class="wday">木</div><div class="wday">金</div>
+        <div class="wday sa">土</div>
+      </div>
+      <div class="cgrid" id="cg">
+        <div style="grid-column:span 7" class="ldwrap"><div class="spin"></div><br>読み込み中...</div>
+      </div>
     </div>
     <div class="detail-panel" id="detail-panel">
       <div class="dp-empty" id="dp-empty">
