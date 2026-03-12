@@ -178,19 +178,23 @@ html,body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(-
 .pat-time-row:last-child{border-bottom:none;}
 .pt-badge{border-radius:16px;padding:4px 11px;font-size:12px;font-weight:700;
   flex-shrink:0;min-width:72px;text-align:center;}
-.pt-time-btn{
-  margin-left:auto;
-  display:flex;align-items:center;gap:6px;
+/* ━ ネイティブ時刻入力 ━ */
+.pt-time-wrap{margin-left:auto;display:flex;align-items:center;gap:6px;}
+.pt-time-input{
   background:var(--bg);border:none;border-radius:10px;
-  padding:8px 14px;cursor:pointer;
-  font-family:'Noto Sans JP',sans-serif;
-  transition:background .12s;
+  padding:8px 12px;font-size:18px;font-weight:700;
+  font-family:'Noto Sans JP',sans-serif;color:var(--text);
+  font-variant-numeric:tabular-nums;letter-spacing:1px;
+  width:110px;text-align:center;cursor:pointer;
+  -webkit-appearance:none;appearance:none;
 }
-.pt-time-btn:active{background:#e0e0e5;}
-.pt-time-val{font-size:20px;font-weight:700;color:var(--text);letter-spacing:1px;
-  font-variant-numeric:tabular-nums;}
-.pt-time-val.empty{font-size:13px;color:var(--text-sub);font-weight:500;letter-spacing:0;}
-.pt-time-arrow{font-size:12px;color:var(--text-sub);}
+.pt-time-input::-webkit-calendar-picker-indicator{
+  opacity:.5;cursor:pointer;padding:2px;
+}
+.pt-time-input:focus{box-shadow:inset 0 0 0 2px var(--accent);outline:none;}
+.pt-time-clear{background:none;border:none;color:#c7c7cc;font-size:18px;
+  cursor:pointer;padding:4px;line-height:1;flex-shrink:0;}
+.pt-time-clear:active{color:var(--sun);}
 
 .marea{width:100%;padding:10px 12px;border:none;border-radius:10px;background:var(--surface);
   font-size:15px;font-family:'Noto Sans JP',sans-serif;color:var(--text);
@@ -203,59 +207,6 @@ html,body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(-
 .btng{width:100%;padding:13px;background:#e5e5ea;color:var(--text);border:none;
   border-radius:14px;font-size:16px;font-family:'Noto Sans JP',sans-serif;
   cursor:pointer;margin-top:9px;font-weight:600;}
-
-/* ━━━ ドラムピッカー ━━━ */
-.drum-ovl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);
-  z-index:450;align-items:center;justify-content:center;}
-.drum-ovl.on{display:flex;}
-.drum-sheet{background:var(--surface);border-radius:18px;
-  width:min(360px,90vw);overflow:hidden;
-  animation:drumPop .2s ease;
-  box-shadow:0 20px 60px rgba(0,0,0,.3);}
-@keyframes drumPop{from{transform:scale(.88);opacity:0}to{transform:scale(1);opacity:1}}
-.drum-toolbar{display:flex;align-items:center;justify-content:space-between;
-  padding:13px 18px 11px;border-bottom:1px solid var(--border);}
-.drum-title{font-size:15px;font-weight:700;color:var(--text);}
-.drum-current{font-size:36px;font-weight:700;color:var(--accent);
-  text-align:center;padding:12px 0 8px;
-  border-bottom:1px solid var(--border);
-  font-variant-numeric:tabular-nums;letter-spacing:3px;}
-.drum-cancel{background:none;border:none;font-size:14px;font-weight:500;
-  color:var(--text-sub);cursor:pointer;font-family:'Noto Sans JP',sans-serif;padding:4px 8px;}
-.drum-ok{background:var(--accent);border:none;font-size:14px;font-weight:700;
-  color:#fff;cursor:pointer;font-family:'Noto Sans JP',sans-serif;
-  padding:7px 18px;border-radius:20px;}
-.drum-clear{background:none;border:none;font-size:12px;font-weight:500;
-  color:var(--sun);cursor:pointer;font-family:'Noto Sans JP',sans-serif;padding:4px 6px;}
-.drum-body{display:flex;align-items:center;justify-content:center;padding:4px 0 16px;gap:0;}
-.drum-col{display:flex;flex-direction:column;align-items:center;gap:2px;}
-.drum-lbl{font-size:12px;font-weight:700;color:var(--text-sub);height:20px;
-  display:flex;align-items:center;}
-.drum-wrap{position:relative;width:120px;height:220px;overflow:hidden;}
-.drum-wrap::before{content:'';position:absolute;left:0;right:0;top:0;height:35%;
-  z-index:2;pointer-events:none;
-  background:linear-gradient(to bottom,rgba(255,255,255,.96) 0%,rgba(255,255,255,0) 100%);}
-.drum-wrap::after{content:'';position:absolute;left:0;right:0;bottom:0;height:35%;
-  z-index:2;pointer-events:none;
-  background:linear-gradient(to top,rgba(255,255,255,.96) 0%,rgba(255,255,255,0) 100%);}
-.drum-indicator{position:absolute;left:10px;right:10px;
-  top:calc(50% - 22px);height:44px;
-  border-radius:10px;background:var(--accent);opacity:.12;
-  z-index:1;pointer-events:none;}
-.drum-indicator::before,.drum-indicator::after{
-  content:'';position:absolute;left:0;right:0;height:1.5px;
-  background:var(--accent);opacity:1;border-radius:1px;}
-.drum-indicator::before{top:0;}.drum-indicator::after{bottom:0;}
-.drum-scroll{height:220px;overflow-y:scroll;scroll-snap-type:y mandatory;
-  -webkit-overflow-scrolling:touch;scrollbar-width:none;position:relative;z-index:0;}
-.drum-scroll::-webkit-scrollbar{display:none;}
-.drum-item{height:44px;display:flex;align-items:center;justify-content:center;
-  font-size:22px;font-weight:500;color:#b0b0b8;scroll-snap-align:center;
-  font-variant-numeric:tabular-nums;cursor:pointer;
-  user-select:none;-webkit-user-select:none;
-  transition:color .08s,font-size .08s,font-weight .08s;}
-.drum-item.active{color:var(--accent);font-size:30px;font-weight:700;}
-.drum-colon{font-size:30px;font-weight:700;color:var(--text);padding:0 2px;margin-top:22px;}
 
 /* ━ 設定パネル ━ */
 .sovl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:500;}
@@ -417,38 +368,6 @@ html,body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(-
   </div>
 </div>
 
-<!-- ドラムピッカー -->
-<div class="drum-ovl" id="drum-ovl">
-  <div class="drum-sheet">
-    <div class="drum-toolbar">
-      <button class="drum-cancel" onclick="drumCancel()">キャンセル</button>
-      <div class="drum-title" id="drum-title"></div>
-      <div style="display:flex;align-items:center;gap:4px;">
-        <button class="drum-clear" onclick="drumClear()">クリア</button>
-        <button class="drum-ok" onclick="drumConfirm()">完了</button>
-      </div>
-    </div>
-    <div class="drum-current" id="drum-current">00:00</div>
-    <div class="drum-body">
-      <div class="drum-col">
-        <div class="drum-lbl">時</div>
-        <div class="drum-wrap">
-          <div class="drum-indicator"></div>
-          <div class="drum-scroll" id="drum-h"></div>
-        </div>
-      </div>
-      <div class="drum-colon">:</div>
-      <div class="drum-col">
-        <div class="drum-lbl">分</div>
-        <div class="drum-wrap">
-          <div class="drum-indicator"></div>
-          <div class="drum-scroll" id="drum-m"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- 設定パネル -->
 <div class="sovl" id="so">
   <div class="spanel">
@@ -481,7 +400,7 @@ html,body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(-
    GAS エディタ → デプロイ → 新しいデプロイ → ウェブアプリ
    で発行されるURLです。
 */
-var GAS_URL = 'https://script.google.com/macros/s/AKfycbwAapzEm4jM_vapClSMBy0fNd-VLD2wcm6k-OswUxgcoM_i-CovvgsT9vN4FRPhk0FN/exec';
+var GAS_URL = 'YOUR_GAS_DEPLOY_URL_HERE';
 // 例: 'https://script.google.com/macros/s/AKfycbx.../exec'
 
 /* ════════════════════════════════════
@@ -530,95 +449,6 @@ function apiPost(action, body) {
       document.getElementById('conn-err').classList.add('on');
       throw err;
     });
-}
-
-/* ════════════════════════════════════
-   ドラムピッカー
-   ════════════════════════════════════ */
-var HOURS = [];
-for(var h=0;h<24;h++) HOURS.push(('0'+h).slice(-2));
-var MINS = ['00','05','10','15','20','25','30','35','40','45','50','55'];
-var ITEM_H = 44;
-
-var drumCb = null;
-var drumMb = null;
-var drumPatId = null;
-
-function updateDrumCurrent(){
-  var h=getDrumValue(document.getElementById('drum-h'),HOURS);
-  var m=getDrumValue(document.getElementById('drum-m'),MINS);
-  document.getElementById('drum-current').textContent=h+':'+m;
-}
-
-function buildDrum(scrollEl, values, selectedVal) {
-  scrollEl.innerHTML = '';
-  for(var g=0;g<2;g++){
-    var ghost=document.createElement('div');
-    ghost.className='drum-item';ghost.style.visibility='hidden';
-    ghost.textContent='00';scrollEl.appendChild(ghost);
-  }
-  var selIdx = 0;
-  values.forEach(function(v,i){
-    var item=document.createElement('div');item.className='drum-item';
-    item.textContent=v;
-    if(v===selectedVal){selIdx=i;item.classList.add('active');}
-    scrollEl.appendChild(item);
-  });
-  for(var g2=0;g2<2;g2++){
-    var ghost2=document.createElement('div');
-    ghost2.className='drum-item';ghost2.style.visibility='hidden';
-    ghost2.textContent='00';scrollEl.appendChild(ghost2);
-  }
-  scrollEl.scrollTop = selIdx * ITEM_H;
-  var t;
-  scrollEl.addEventListener('scroll',function(){
-    clearTimeout(t);
-    t=setTimeout(function(){
-      var idx=Math.round(scrollEl.scrollTop/ITEM_H);
-      idx=Math.max(0,Math.min(values.length-1,idx));
-      scrollEl.scrollTo({top:idx*ITEM_H,behavior:'smooth'});
-      var items=scrollEl.querySelectorAll('.drum-item:not([style*="hidden"])');
-      items.forEach(function(el,i){el.classList.toggle('active',i===idx);});
-      updateDrumCurrent();
-    },80);
-  });
-}
-
-function getDrumValue(scrollEl, values) {
-  var idx=Math.round(scrollEl.scrollTop/ITEM_H);
-  idx=Math.max(0,Math.min(values.length-1,idx));
-  return values[idx];
-}
-
-function openDrum(mb, patId, currentTime, cb) {
-  drumMb=mb; drumPatId=patId; drumCb=cb;
-  var pat=getPat(mb,patId);
-  document.getElementById('drum-title').textContent = pat ? pat.label : '';
-  var hVal='09', mVal='00';
-  if(currentTime && currentTime.length>=4){
-    var parts=currentTime.split(':');
-    if(parts.length>=2){hVal=parts[0];mVal=parts[1];}
-  }
-  buildDrum(document.getElementById('drum-h'), HOURS, hVal);
-  buildDrum(document.getElementById('drum-m'), MINS,
-    MINS.indexOf(mVal)>=0 ? mVal : '00');
-  document.getElementById('drum-current').textContent=hVal+':'+mVal;
-  document.getElementById('drum-ovl').classList.add('on');
-}
-
-function drumCancel(){
-  document.getElementById('drum-ovl').classList.remove('on');
-}
-function drumClear(){
-  if(drumCb)drumCb(null);
-  document.getElementById('drum-ovl').classList.remove('on');
-}
-function drumConfirm(){
-  var h=getDrumValue(document.getElementById('drum-h'),HOURS);
-  var m=getDrumValue(document.getElementById('drum-m'),MINS);
-  var t=h+':'+m;
-  if(drumCb)drumCb(t);
-  document.getElementById('drum-ovl').classList.remove('on');
 }
 
 /* ════════════════════════════════════
@@ -910,21 +740,27 @@ function rebuildTimeList(mb){
     var row=document.createElement('div');row.className='pat-time-row';
     var badge=document.createElement('div');badge.className='pt-badge';
     badge.style.background=p.bg;badge.style.color=p.color;badge.textContent=p.label;
-    var btn=document.createElement('button');btn.className='pt-time-btn';
+    var wrap=document.createElement('div');wrap.className='pt-time-wrap';
+    var inp=document.createElement('input');
+    inp.type='time';inp.className='pt-time-input';
+    inp.step='300'; /* 5分刻み */
     var val=ts[mb].times[p.id]||'';
-    var valEl=document.createElement('span');valEl.className=val?'pt-time-val':'pt-time-val empty';
-    valEl.id='ptv-'+mb+'-'+p.id;
-    valEl.textContent=val||'タップして設定';
-    var arrow=document.createElement('span');arrow.className='pt-time-arrow';arrow.textContent='▶';
-    btn.appendChild(valEl);btn.appendChild(arrow);
-    (function(pp,mm){btn.onclick=function(){
-      openDrum(mm,pp.id,ts[mm].times[pp.id]||'',function(t){
-        if(t===null){delete ts[mm].times[pp.id];}
-        else{ts[mm].times[pp.id]=t;}
-        rebuildTimeList(mm);
+    if(val)inp.value=val;
+    (function(pp,mm){
+      inp.addEventListener('change',function(){
+        if(this.value){ts[mm].times[pp.id]=this.value;}
+        else{delete ts[mm].times[pp.id];}
       });
-    };})(p,mb);
-    row.appendChild(badge);row.appendChild(btn);
+    })(p,mb);
+    wrap.appendChild(inp);
+    /* クリアボタン */
+    var clr=document.createElement('button');clr.className='pt-time-clear';
+    clr.innerHTML='&#10005;';clr.title='時刻をクリア';
+    (function(pp,mm,inputEl){clr.onclick=function(){
+      inputEl.value='';delete ts[mm].times[pp.id];
+    };})(p,mb,inp);
+    wrap.appendChild(clr);
+    row.appendChild(badge);row.appendChild(wrap);
     ptl.appendChild(row);
   });
 }
@@ -966,7 +802,6 @@ function saveD(){
 }
 function closeM(){document.getElementById('dm').classList.remove('on');}
 document.getElementById('dm').addEventListener('click',function(e){if(e.target===this)closeM();});
-document.getElementById('drum-ovl').addEventListener('click',function(e){if(e.target===this)drumCancel();});
 
 /* タブ */
 function sw(t){
